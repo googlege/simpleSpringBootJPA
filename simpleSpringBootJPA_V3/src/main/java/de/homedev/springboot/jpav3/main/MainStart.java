@@ -8,15 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
-import com.zaxxer.hikari.HikariDataSource;
-
-import de.homedev.springboot.jpav3.config.DataSourceContainer;
 import de.homedev.springboot.jpav3.config.DbConfig;
+import de.homedev.springboot.jpav3.config.DevConfiguration;
 import de.homedev.springboot.jpav3.entity.UserEntity;
 import de.homedev.springboot.jpav3.entity.UserInfoEntity;
 import de.homedev.springboot.jpav3.entity.UserRightEntity;
@@ -30,20 +26,21 @@ import de.homedev.springboot.jpav3.service.IUserService;
  *
  */
 @SpringBootApplication
-@Import({ DbConfig.class })
+@Import({ DevConfiguration.class, DbConfig.class })
 public class MainStart {
 	private static final Logger log = LoggerFactory.getLogger(MainStart.class);
 
-	@Bean(name = "dataSourceContainer")
-	public DataSourceContainer getDataSourceContainer() {
-		DataSourceProperties prop = new DataSourceProperties();
-		prop.setDriverClassName("org.hsqldb.jdbc.JDBCDriver");
-		prop.setUrl("jdbc:hsqldb:mem:test");
-		prop.setUsername("sa");
-		prop.setPassword("");
-		final HikariDataSource result = prop.initializeDataSourceBuilder().type(HikariDataSource.class).build();
-		return new DataSourceContainer(result);
-	}
+	// @Bean(name = "dataSourceContainer")
+	// public DataSourceContainer getDataSourceContainer() {
+	// DataSourceProperties prop = new DataSourceProperties();
+	// prop.setDriverClassName("org.hsqldb.jdbc.JDBCDriver");
+	// prop.setUrl("jdbc:hsqldb:mem:test");
+	// prop.setUsername("sa");
+	// prop.setPassword("");
+	// final HikariDataSource result =
+	// prop.initializeDataSourceBuilder().type(HikariDataSource.class).build();
+	// return new DataSourceContainer(result);
+	// }
 
 	public static void main(String[] args) {
 		try {

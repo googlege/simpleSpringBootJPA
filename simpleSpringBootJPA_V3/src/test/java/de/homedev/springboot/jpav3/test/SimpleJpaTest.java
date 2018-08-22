@@ -11,13 +11,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.TestComponent;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import de.homedev.springboot.jpav3.config.DbConfig;
+import de.homedev.springboot.jpav3.config.DevConfiguration;
 import de.homedev.springboot.jpav3.entity.UserEntity;
 import de.homedev.springboot.jpav3.entity.UserInfoEntity;
 import de.homedev.springboot.jpav3.entity.UserRightEntity;
@@ -25,7 +30,9 @@ import de.homedev.springboot.jpav3.service.IUserService;
 
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
-@Import({ DbConfig.class, TestConfig.class })
+@ComponentScan(basePackages = { "de.homedev.springboot.jpav3" }, includeFilters = @ComponentScan.Filter(value = { TestConfiguration.class,
+		TestComponent.class }), excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, classes = { DevConfiguration.class }))
+@Import({ DbConfig.class, TestConfiguration.class })
 @PropertySource(value = "application-test.properties", ignoreResourceNotFound = false)
 public class SimpleJpaTest {
 	private static final Logger log = LoggerFactory.getLogger(SimpleJpaTest.class);
