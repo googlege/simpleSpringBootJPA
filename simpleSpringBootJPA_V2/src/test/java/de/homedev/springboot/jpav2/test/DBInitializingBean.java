@@ -17,7 +17,7 @@ public class DBInitializingBean implements InitializingBean {
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		int port = 6433;// Integer.valueOf(environment.getRequiredProperty("embeddeddb.datasource.port"));
+		int port = 6435;// Integer.valueOf(environment.getRequiredProperty("embeddeddb.datasource.port"));
 		embeddedPostgres = EmbeddedPostgres.builder().setPort(port).setCleanDataDirectory(true).start();
 	}
 
