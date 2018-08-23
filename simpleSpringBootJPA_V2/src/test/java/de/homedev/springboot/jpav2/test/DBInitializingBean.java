@@ -1,6 +1,7 @@
 package de.homedev.springboot.jpav2.test;
 
-import org.springframework.beans.factory.InitializingBean;
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
@@ -8,25 +9,39 @@ import org.springframework.stereotype.Component;
 import com.opentable.db.postgres.embedded.EmbeddedPostgres;
 
 @Component
-public class DBInitializingBean implements InitializingBean {
+public class DBInitializingBean { // implements InitializingBean {
 
-	@Autowired
-	private Environment environment;
+    @Autowired
+    private Environment environment;
 
-	private EmbeddedPostgres embeddedPostgres;
+    private EmbeddedPostgres embeddedPostgres;
 
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		int port = 6435;// Integer.valueOf(environment.getRequiredProperty("embeddeddb.datasource.port"));
-		embeddedPostgres = EmbeddedPostgres.builder().setPort(port).setCleanDataDirectory(true).start();
-	}
+    @PostConstruct
+    public void afterPropertiesSet() throws Exception {
+        int port = 6435;// Integer.valueOf(environment.getRequiredProperty("embeddeddb.datasource.port"));
+        EmbeddedPostgres.Builder builder = null;
+        try {
+            builder = EmbeddedPostgres.builder().setPort(port).setCleanDataDirectory(true);
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+        System.err.println("builder =" + builder);
+        if (embeddedPostgres != null) {
+            try {
+                embeddedPostgres = builder.start();
+            } catch (Throwable t) {
+                t.printStackTrace();
+            }
+        }
+        System.err.println("embeddedPostgres =" + embeddedPostgres);
+    }
 
-	public EmbeddedPostgres getEmbeddedPostgres() {
-		return embeddedPostgres;
-	}
+    public EmbeddedPostgres getEmbeddedPostgres() {
+        return embeddedPostgres;
+    }
 
-	public Environment getEnvironment() {
-		return environment;
-	}
+    public Environment getEnvironment() {
+        return environment;
+    }
 
 }
