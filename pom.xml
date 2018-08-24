@@ -1,143 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
- <modelVersion>4.0.0</modelVersion>
-   <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
-    </parent>
+    <modelVersion>4.0.0</modelVersion>
 
-    
     <groupId>de.homedev.spring-boot</groupId>
-    <artifactId>simple-jpa</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
-	
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
-  <dependencies>
-        
-       <dependency>
-           <groupId>org.springframework.boot</groupId>
-           <artifactId>spring-boot-starter</artifactId>
-       </dependency>
- <!-- JDBC -->       
-	   <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        
-  
-  <!--        
-       
-         <version>3.1.0</version>
-         <version>5.2.17.Final</version>
-    
+	<artifactId>simple-jpa-pom</artifactId>
+	<version>1.0.1-SNAPSHOT</version>
+	<name>simple-jpa</name>
+    <packaging>pom</packaging>
    
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-            
-        </dependency>      
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            
-        </dependency>
-        
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-java8</artifactId>
-          
-        </dependency>
-      
- -->      
-        
-        
-         <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-        </dependency>
-        
-        
-        
- 
-      
-<!--
-	    <dependency>
-            <groupId>com.oracle</groupId>
-	        <artifactId>ojdbc8</artifactId>
-	        <version>12c</version>
-        </dependency>
---> 
-         <dependency>
-            <groupId>com.opentable.components</groupId>
-            <artifactId>otj-pg-embedded</artifactId>
-             <version>0.12.0</version>
-        </dependency> 
-        
-        <dependency>
-           <groupId>org.postgresql</groupId>
-           <artifactId>postgresql</artifactId>
-            <scope>test</scope>
-       </dependency>
-       
-      
-       
-        
-       
-        <dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-        </dependency>       
-
-    	 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-    
-    
-  </dependencies>
-
-<build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            
-            <plugin>
-            <groupId>de.jpdigital</groupId>
-            <artifactId>hibernate52-ddl-maven-plugin</artifactId> <!-- Change to match your Hibernate version -->
-            <version>2.2.0</version> <!-- Change to latest version available -->
-            <configuration>
-                <dialects>
-                    <param>postgresql9</param>
-                </dialects>
-                <useEnvers>true</useEnvers>
-                <packages>
-                    <param>de.homedev.springboot.jpa.entity</param>
-                </packages>
-            </configuration>
-            <executions>
-           </executions>
-        </plugin>
-        </plugins>
-    </build>
-
-
-  <!-- mvn hibernate52-ddl:gen-ddl -Ddetail=true -->
-
-
+    <modules>
+		<module>/simpleSpringBootJPA_V1</module>
+ 		<module>/simpleSpringBootJPA_V2</module> 
+    </modules>
 
 </project>
