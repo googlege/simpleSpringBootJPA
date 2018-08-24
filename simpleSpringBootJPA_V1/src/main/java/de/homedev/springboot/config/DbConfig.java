@@ -2,6 +2,7 @@
 package de.homedev.springboot.config;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,14 +11,12 @@ import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.flyway.FlywayDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -34,12 +33,12 @@ import de.homedev.springboot.jpa.service.UserServiceImpl;
  *
  */
 @Configuration
-@EnableAutoConfiguration
 @ComponentScan(basePackages = { "de.homedev.springboot.jpa" })
 @EntityScan(value = { "de.homedev.springboot.jpa.entity" })
 @EnableJpaRepositories(basePackages = { "de.homedev.springboot.jpa.dao" })
 @EnableTransactionManagement
-@Profile("!test")
+// @Profile({ "!selenium", "!test" })
+// @Conditional(value = { AndProfilesCondition.class })
 public class DbConfig {
 	private static Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -60,25 +59,23 @@ public class DbConfig {
 
 		LOGGER.info("creating database " + database);
 
-		// try (Connection conn =
-		// embeddedPostgres.getPostgresDatabase().getConnection()) {
-		// Statement statement = conn.createStatement();
-		// if (!hasDatabase(database, statement)) {
-		// statement.execute("CREATE DATABASE " + database);
-		// }
-		// if (!hasUser("postgres", statement)) {
-		// statement.execute("CREATE USER " + username + " WITH ENCRYPTED
-		// PASSWORD '" + password + "'");
-		// statement.execute("GRANT ALL PRIVILEGES ON DATABASE \"" + database +
-		// "\" to " + username);
-		// }
-		//
-		// LOGGER.info("database " + database + " created");
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
-		// return embeddedPostgres.getDatabase(username, database);
-		return embeddedPostgres.getPostgresDatabase();
+		try (Connection conn = embeddedPostgres.getPostgresDatabase().getConnection()) {
+			Statement statement = conn.createStatement();
+			if (!hasDatabase(database, statement)) {
+				statement.execute("CREATE DATABASE " + database);
+				LOGGER.info("database " + database + " created");
+			}
+			if (!hasUser("postgres", statement)) {
+				statement.execute("CREATE USER " + username + " WITH ENCRYPTED PASSWORD '" + password + "'");
+				statement.execute("GRANT ALL PRIVILEGES ON DATABASE \"" + database + "\" to " + username);
+				LOGGER.info("user " + username + " with all privileges on database " + database + " created");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return embeddedPostgres.getDatabase(username, database);
+
 	}
 
 	private boolean hasDatabase(String database, Statement statement) throws SQLException {
