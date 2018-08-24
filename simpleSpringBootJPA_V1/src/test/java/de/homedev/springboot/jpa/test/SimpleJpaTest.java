@@ -25,9 +25,9 @@ import de.homedev.springboot.jpa.test.config.DbTestConfig;
 
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
-@Import({ DbTestConfig.class })
 @ComponentScan(basePackages = { "de.homedev.springboot.jpa" })
 @PropertySource(value = "classpath:application-test.properties", ignoreResourceNotFound = false)
+@Import({ DbTestConfig.class })
 public class SimpleJpaTest {
 	private static final Logger log = LoggerFactory.getLogger(SimpleJpaTest.class);
 

@@ -1,4 +1,4 @@
-package de.homedev.springboot.jpa.entity;
+package de.homedev.springboot.jpav2.entity;
 
 import java.io.Serializable;
 

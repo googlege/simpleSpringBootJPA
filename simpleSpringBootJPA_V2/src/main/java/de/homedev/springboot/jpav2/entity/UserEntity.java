@@ -1,4 +1,4 @@
-package de.homedev.springboot.jpa.entity;
+package de.homedev.springboot.jpav2.entity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -46,8 +47,7 @@ public class UserEntity implements Serializable {
 	private List<UserRightEntity> userRightsList;
 
 	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
-	// @JoinColumn(name = "userinfo_id_fk", unique = true, nullable = false,
-	// updatable = false)
+	@JoinColumn(name = "user_info_id_fk", unique = true, nullable = false, updatable = false)
 	private UserInfoEntity userInfo;
 
 	public UserEntity() {
@@ -111,5 +111,4 @@ public class UserEntity implements Serializable {
 		return "UserEntity [id=" + id + ", version=" + version + ", username=" + username + ", password=" + password + ", userRightsList=" + userRightsList
 				+ ", userInfo=" + userInfo + "]";
 	}
-
 }

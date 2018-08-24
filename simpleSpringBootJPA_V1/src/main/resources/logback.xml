@@ -3,6 +3,6 @@
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <logger name="org.springframework" level="ERROR"/>
     <logger name="org.apache" level="ERROR"/>
-    <logger name="org.hibernate" level="ERROR"/>
+    <logger name="org.hibernate" level="DEBUG"/>
     <logger name="de.homedev.springboot" level="ERROR"/>
 </configuration>

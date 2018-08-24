@@ -34,9 +34,6 @@ public class SimpleJpaTest {
 	@Autowired
 	private ConfigurableApplicationContext ctx;
 
-	@Autowired
-	DBInitializingBean dbInitializingBean;
-
 	private IUserService simpleFassade;
 
 	// @Value("${embeddeddb.datasource.port:null}")

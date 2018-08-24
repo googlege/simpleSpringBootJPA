@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Import;
 
+import de.homedev.springboot.jpav2.config.DBInitializingBean;
 import de.homedev.springboot.jpav2.config.DbConfig;
 import de.homedev.springboot.jpav2.entity.UserEntity;
 import de.homedev.springboot.jpav2.entity.UserInfoEntity;
@@ -25,54 +26,54 @@ import de.homedev.springboot.jpav2.service.IUserService;
  *
  */
 @SpringBootApplication
-@Import({ DbConfig.class })
+@Import({ DBInitializingBean.class, DbConfig.class })
 public class MainStart {
-    private static final Logger log = LoggerFactory.getLogger(MainStart.class);
+	private static final Logger log = LoggerFactory.getLogger(MainStart.class);
 
-    public static void main(String[] args) {
-        try {
-            ConfigurableApplicationContext ctx = SpringApplication.run(MainStart.class, args);
-            String username = "musterman";
-            String password = "admin";
-            IUserService fassade = (IUserService) ctx.getBean(IUserService.SERVICE_NAME);
-            UserEntity entity = new UserEntity();
-            entity.setPassword(password);
-            entity.setUsername(username);
-            UserInfoEntity info = new UserInfoEntity();
-            info.setName("Musterman");
-            info.setVorname("Robert");
-            info.setEmail("Robert.Musterman@google.com");
-            info.setUserEntity(entity);
-            entity.setUserInfo(info);
-            List<UserRightEntity> userRightsList = new ArrayList<UserRightEntity>(10);
-            UserRightEntity right = new UserRightEntity();
-            right.setUserRight(1);
-            right.setUserEntity(entity);
-            userRightsList.add(right);
-            right = new UserRightEntity();
-            right.setUserRight(2);
-            right.setUserEntity(entity);
-            userRightsList.add(right);
-            entity.setUserRightsList(userRightsList);
-            List<UserEntity> list = new ArrayList<UserEntity>(1);
-            list.add(entity);
-            fassade.save(list);
-            entity = fassade.findByUsernameAndPassword(username, password);
+	public static void main(String[] args) {
+		try {
+			ConfigurableApplicationContext ctx = SpringApplication.run(MainStart.class, args);
+			String username = "musterman";
+			String password = "admin";
+			IUserService fassade = (IUserService) ctx.getBean(IUserService.SERVICE_NAME);
+			UserEntity entity = new UserEntity();
+			entity.setPassword(password);
+			entity.setUsername(username);
+			UserInfoEntity info = new UserInfoEntity();
+			info.setName("Musterman");
+			info.setVorname("Robert");
+			info.setEmail("Robert.Musterman@google.com");
+			info.setUserEntity(entity);
+			entity.setUserInfo(info);
+			List<UserRightEntity> userRightsList = new ArrayList<>(10);
+			UserRightEntity right = new UserRightEntity();
+			right.setUserRight(1);
+			right.setUserEntity(entity);
+			userRightsList.add(right);
+			right = new UserRightEntity();
+			right.setUserRight(2);
+			right.setUserEntity(entity);
+			userRightsList.add(right);
+			entity.setUserRightsList(userRightsList);
+			List<UserEntity> list = new ArrayList<>(1);
+			list.add(entity);
+			fassade.save(list);
+			entity = fassade.findByUsernameAndPassword(username, password);
 
-            log.info("entity username:" + entity.getUsername() + "; entity password:" + entity.getPassword());
-            // READING UserInfo and List<UserRightEntity> CAUSE LAZY LOADING
-            // EXCEPTION ON THIS PLACE
-            // POSIBLE SOLUTIONS
-            // 1.Sent JPA Graph as parameter in function
-            // findByUsernameAndPassword
-            // 2.Reading data before entity "UserEntity" was detached
-            // 3.Reading UserInfo and List<UserRightEntity> with other service
-            // functions
-            // !!First solution is the best!!
+			log.info("entity username:" + entity.getUsername() + "; entity password:" + entity.getPassword());
+			// READING UserInfo and List<UserRightEntity> CAUSE LAZY LOADING
+			// EXCEPTION ON THIS PLACE
+			// POSIBLE SOLUTIONS
+			// 1.Sent JPA Graph as parameter in function
+			// findByUsernameAndPassword
+			// 2.Reading data before entity "UserEntity" was detached
+			// 3.Reading UserInfo and List<UserRightEntity> with other service
+			// functions
+			// !!First solution is the best!!
 
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-    }
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+		}
+	}
 
 }
