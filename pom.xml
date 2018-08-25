@@ -12,7 +12,8 @@
    
     <modules>
 		<module>/simpleSpringBootJPA_V1</module>
- 		<module>/simpleSpringBootJPA_V2</module> 
+ 		<module>/simpleSpringBootJPA_V2</module>
+        <module>/simpleSpringBootJPA_V3</module> 		
     </modules>
 
 </project>

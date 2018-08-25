@@ -1,0 +1,37 @@
+
+spring:
+  main: 
+    banner-mode: "off"
+  datasource:
+    url: jdbc:hsqldb:mem:testdb
+    username: sa
+    password: 
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.HSQLDialect
+        naming_strategy: org.hibernate.cfg.DefaultNamingStrategy
+        default_schema: public
+    generate-ddl: true
+    show-sql: true 
+    hibernate: 
+      ddl-auto: update
+  flyway: 
+     enabled: false
+     baseline-version: 1
+     clean-disabled: false
+     baseline-on-migrate: true  
+     schemas: public 
+     table: schema_version
+     locations: 
+            - classpath:db/migration 
+            
+ 
+logging:
+   file: simpleSpringBootJPA.log
+
+
+  
+    
+
