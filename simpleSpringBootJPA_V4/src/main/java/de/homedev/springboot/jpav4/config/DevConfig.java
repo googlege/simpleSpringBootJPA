@@ -1,5 +1,5 @@
 
-package de.homedev.springboot.jpa.config;
+package de.homedev.springboot.jpav4.config;
 
 import java.io.IOException;
 

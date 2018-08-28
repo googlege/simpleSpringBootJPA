@@ -1,0 +1,53 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.4.RELEASE'
+    }
+    repositories {
+	    maven { url "file:///H:/m2_repository" }
+        mavenCentral()
+		maven { url "https://repo.spring.io/snapshot" }
+	    maven { url "https://repo.spring.io/milestone" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'maven'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+sourceCompatibility = 1.8
+
+group = 'de.homedev.spring-boot'
+version = '1.0.2-SNAPSHOT'
+
+repositories {
+    maven { url "file:///H:/m2_repository" }
+	mavenCentral()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+}
+
+uploadArchives {
+    repositories {
+        maven { url "file:///H:/m2_repository" }
+    }
+}
+
+
+ext {
+	springStatemachineVersion = '2.0.2.RELEASE'
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.statemachine:spring-statemachine-bom:${springStatemachineVersion}"
+	}
+}

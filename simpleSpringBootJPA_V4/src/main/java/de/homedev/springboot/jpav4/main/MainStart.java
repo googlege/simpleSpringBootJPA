@@ -1,5 +1,5 @@
 
-package de.homedev.springboot.jpa.main;
+package de.homedev.springboot.jpav4.main;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,8 +10,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 
-import de.homedev.springboot.jpa.config.DevConfig;
-import de.homedev.springboot.jpa.service.IUserService;
+import de.homedev.springboot.jpav4.config.DevConfig;
+import de.homedev.springboot.jpav4.service.IUserService;
 
 /**
  * 
@@ -22,21 +22,21 @@ import de.homedev.springboot.jpa.service.IUserService;
  */
 @SpringBootApplication
 @Import({ DevConfig.class })
-@ComponentScan(basePackages = { "de.homedev.springboot.jpa" })
+@ComponentScan(basePackages = { "de.homedev.springboot.jpav4" })
 @PropertySource(value = "classpath:application.properties", ignoreResourceNotFound = false)
 public class MainStart {
-	private static final Logger log = LoggerFactory.getLogger(MainStart.class);
+    private static final Logger log = LoggerFactory.getLogger(MainStart.class);
 
-	public static void main(String[] args) {
-		try {
-			ConfigurableApplicationContext ctx = SpringApplication.run(MainStart.class, args);
+    public static void main(String[] args) {
+        try {
+            ConfigurableApplicationContext ctx = SpringApplication.run(MainStart.class, args);
 
-			IUserService fassade = (IUserService) ctx.getBean(IUserService.SERVICE_NAME);
-			fassade.printMessage();
+            IUserService fassade = (IUserService) ctx.getBean(IUserService.SERVICE_NAME);
+            fassade.printMessage();
 
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-		}
-	}
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+    }
 
 }
