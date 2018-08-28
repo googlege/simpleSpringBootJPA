@@ -1,9 +1,9 @@
-package de.homedev.springboot.jpa.service;
+package de.homedev.springboot.jpav4.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import de.homedev.springboot.jpa.config.MyClass;
+import de.homedev.springboot.jpav4.config.MyClass;
 
 @Service(IUserService.SERVICE_NAME)
 public class UserServiceImpl implements IUserService {

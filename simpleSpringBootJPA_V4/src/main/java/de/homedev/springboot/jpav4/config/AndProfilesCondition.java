@@ -1,4 +1,4 @@
-package de.homedev.springboot.jpa.config;
+package de.homedev.springboot.jpav4.config;
 
 import java.util.HashSet;
 import java.util.Set;

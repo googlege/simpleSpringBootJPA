@@ -1,4 +1,4 @@
-package de.homedev.springboot.jpa.service;
+package de.homedev.springboot.jpav4.service;
 
 public interface IUserService {
 	public static final String SERVICE_NAME = "userServiceImpl";
