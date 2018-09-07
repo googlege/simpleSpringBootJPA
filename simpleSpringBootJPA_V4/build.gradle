@@ -3,7 +3,7 @@ buildscript {
         springBootVersion = '2.0.4.RELEASE'
     }
     repositories {
-	    maven { url "file:///H:/m2_repository" }
+	    mavenLocal()
         mavenCentral()
 		maven { url "https://repo.spring.io/snapshot" }
 	    maven { url "https://repo.spring.io/milestone" }
@@ -24,7 +24,7 @@ group = 'de.homedev.spring-boot'
 version = '1.0.2-SNAPSHOT'
 
 repositories {
-    maven { url "file:///H:/m2_repository" }
+    mavenLocal()
 	mavenCentral()
 	maven { url "https://repo.spring.io/snapshot" }
 	maven { url "https://repo.spring.io/milestone" }
@@ -32,7 +32,7 @@ repositories {
 
 uploadArchives {
     repositories {
-        maven { url "file:///H:/m2_repository" }
+        mavenLocal()
     }
 }
 
