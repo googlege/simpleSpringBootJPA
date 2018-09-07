@@ -9,13 +9,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
-@Profile({ "!selenium", "!test" })
-@Conditional(value = { AndProfilesCondition.class })
+@Profile({
+        "!selenium", "!test"
+})
+@Conditional(value = {
+        AndProfilesCondition.class
+})
 public class DevConfig {
 
-	// @Primary
-	@Bean(name = "getMyClass")
-	public MyClass getMyClass() throws IOException {
-		return new MyClass("created in DbConfig");
-	}
+    // @Primary
+    //@Lazy
+    @Bean(name = "getMyClass")
+    public MyClass getMyClass() throws IOException {
+        return new MyClass("created in DbConfig");
+    }
 }
