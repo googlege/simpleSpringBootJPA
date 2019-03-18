@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  activemq:
+    container_name: SimpleActiveMQ
+    image: webcenter/activemq:5.14.3
+    ports:
+      - "1883:1883"   # mqtt
+      - "5672:5672"   # amqp
+      - "8161:8161"   # ui
+      - "61613:61613" # stomp
+      - "61614:61614" # ws
+      - "61616:61616" # jms
+    volumes:
+      - ./activemq-data:/conf
+    environment:
+      ACTIVEMQ_REMOVE_DEFAULT_ACCOUNT: "true"
+      ACTIVEMQ_MIN_MEMORY: 512
+      ACTIVEMQ_MAX_MEMORY: 2048
+      ACTIVEMQ_ENABLED_SCHEDULER: "true"
+      ACTIVEMQ_REMOVE_DEFAULT_ACCOUNT: "true"
+      ACTIVEMQ_ADMIN_LOGIN: admin
+      ACTIVEMQ_ADMIN_PASSWORD: admin
+      ACTIVEMQ_WRITE_LOGIN: user
+      ACTIVEMQ_WRITE_PASSWORD: user
+      ACTIVEMQ_READ_LOGIN: user
+      ACTIVEMQ_READ_PASSWORD: user
+      ACTIVEMQ_JMX_LOGIN: jmx
+      ACTIVEMQ_JMX_PASSWORD: jmx
