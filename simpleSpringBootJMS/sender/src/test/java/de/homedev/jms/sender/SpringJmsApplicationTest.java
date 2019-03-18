@@ -21,17 +21,28 @@ import de.homedev.jms.sender.config.ReceiverConfig;
 @Import(value = { ReceiverConfig.class })
 public class SpringJmsApplicationTest {
 
-    @Autowired
-    private Sender sender;
+	@Autowired
+	private SenderV1 senderV1;
 
-    @Autowired
-    private Receiver receiver;
+	@Autowired
+	private SenderV2 senderV2;
 
-    @Test
-    public void testReceive() throws Exception {
-        sender.send("Hello Spring JMS ActiveMQ!");
+	@Autowired
+	private Receiver receiver;
 
-        receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
-        assertThat(receiver.getLatch().getCount()).isEqualTo(0);
-    }
+	@Test
+	public void testReceiveV1() throws Exception {
+		senderV1.send("Hello Spring JMS ActiveMQ!");
+
+		receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
+		assertThat(receiver.getLatch().getCount()).isEqualTo(0);
+	}
+
+	@Test
+	public void testReceiveV2() throws Exception {
+		senderV2.send("Hello Spring JMS ActiveMQ!");
+
+		receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
+		assertThat(receiver.getLatch().getCount()).isEqualTo(0);
+	}
 }

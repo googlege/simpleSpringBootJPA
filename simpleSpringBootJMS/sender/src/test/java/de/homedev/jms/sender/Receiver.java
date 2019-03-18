@@ -10,17 +10,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class Receiver {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Receiver.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(Receiver.class);
 
-    private CountDownLatch latch = new CountDownLatch(1);
+	private CountDownLatch latch = new CountDownLatch(1);
 
-    public CountDownLatch getLatch() {
-        return latch;
-    }
+	public CountDownLatch getLatch() {
+		return latch;
+	}
 
-    @JmsListener(destination = "${app.activemq.name}")
-    public void receive(String message) {
-        LOGGER.info("received message='{}'", message);
-        latch.countDown();
-    }
+	@JmsListener(destination = "${app.jms.mqname}")
+	public void receive(String message) {
+		LOGGER.info("received message='{}'", message);
+		latch.countDown();
+	}
 }

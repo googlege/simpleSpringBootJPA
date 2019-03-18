@@ -9,20 +9,25 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 
-import de.homedev.jms.sender.config.CommonSenderAndReceiverConfig;
+import de.homedev.jms.sender.config.ActiveMQConfig;
 import de.homedev.jms.sender.config.SenderConfig;
 
 @SpringBootApplication
 @ComponentScan(basePackages = { "de.homedev.jms.sender" })
-@Import(value = { CommonSenderAndReceiverConfig.class, SenderConfig.class })
+@Import(value = { ActiveMQConfig.class, SenderConfig.class })
 public class SpringJmsSenderApplication {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SpringJmsSenderApplication.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SpringJmsSenderApplication.class);
 
-    public static void main(String[] args) {
-        ConfigurableApplicationContext ctx = SpringApplication.run(SpringJmsSenderApplication.class, args);
-        Sender sender = ctx.getBean(Sender.class);
-        String msg = "Hello Spring JMS ActiveMQ!";
-        sender.send(msg);
-        LOGGER.info("Jast send:" + msg);
-    }
+	public static void main(String[] args) {
+		ConfigurableApplicationContext ctx = SpringApplication.run(SpringJmsSenderApplication.class, args);
+		SenderV2 sender = ctx.getBean(SenderV2.class);
+		String msg = "Hello Spring JMS ActiveMQ!";
+		try {
+			sender.send(msg);
+			LOGGER.info("Jast send:" + msg);
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+		}
+
+	}
 }

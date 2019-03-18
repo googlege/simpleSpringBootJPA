@@ -1,6 +1,4 @@
-package de.homedev.jms.receiver;
-
-import javax.jms.Message;
+package de.homedev.jms.sender;
 
 import org.apache.activemq.command.ActiveMQQueue;
 import org.slf4j.Logger;
@@ -11,9 +9,9 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ReceiverV1 {
+public class SenderV1 {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ReceiverV1.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SenderV1.class);
 
 	@Autowired
 	private JmsTemplate jmsTemplate;
@@ -21,13 +19,9 @@ public class ReceiverV1 {
 	@Value("${app.jms.mqname}")
 	private String activemqName;
 
-	public void receive() {
-		int messagesNumber = 0;
-		Message message = null;
+	public void send(String message) {
+		LOGGER.info("sending message='{}'", message);
 		ActiveMQQueue queue = new ActiveMQQueue(activemqName);
-		while ((message = jmsTemplate.receive(queue)) != null) {
-			messagesNumber++;
-		}
-		LOGGER.info("" + messagesNumber + " messages was in MQ " + activemqName);
+		jmsTemplate.convertAndSend(queue, message);
 	}
 }
