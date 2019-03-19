@@ -14,11 +14,11 @@ import de.homedev.jms.receiver.config.ReceiverConfig;
 @SpringBootApplication
 @ComponentScan(basePackages = { "de.homedev.jms.receiver" })
 @Import(value = { ActiveMQConfig.class, ReceiverConfig.class })
-public class SpringJmsApplication {
-	private static final Logger LOGGER = LoggerFactory.getLogger(SpringJmsApplication.class);
+public class SpringJmsReceiverListenerApplication {
+	private static final Logger LOGGER = LoggerFactory.getLogger(SpringJmsReceiverListenerApplication.class);
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringJmsApplication.class, args);
+		SpringApplication.run(SpringJmsReceiverListenerApplication.class, args);
 		LOGGER.info("waiting for jms messages");
 	}
 

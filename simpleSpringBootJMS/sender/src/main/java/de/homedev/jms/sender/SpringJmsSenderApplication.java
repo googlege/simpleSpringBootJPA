@@ -16,18 +16,19 @@ import de.homedev.jms.sender.config.SenderConfig;
 @ComponentScan(basePackages = { "de.homedev.jms.sender" })
 @Import(value = { ActiveMQConfig.class, SenderConfig.class })
 public class SpringJmsSenderApplication {
-	private static final Logger LOGGER = LoggerFactory.getLogger(SpringJmsSenderApplication.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SpringJmsSenderApplication.class);
 
-	public static void main(String[] args) {
-		ConfigurableApplicationContext ctx = SpringApplication.run(SpringJmsSenderApplication.class, args);
-		SenderV2 sender = ctx.getBean(SenderV2.class);
-		String msg = "Hello Spring JMS ActiveMQ!";
-		try {
-			sender.send(msg);
-			LOGGER.info("Jast send:" + msg);
-		} catch (Exception e) {
-			LOGGER.error(e.getMessage(), e);
-		}
-
-	}
+    public static void main(String[] args) {
+        ConfigurableApplicationContext ctx = SpringApplication.run(SpringJmsSenderApplication.class, args);
+        SenderV2 sender = ctx.getBean(SenderV2.class);
+        String msg = "Hello Spring JMS ActiveMQ! i=";
+        try {
+            for (int i = 0; i < 20; i++) {
+                sender.send(msg + i);
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        System.exit(0);
+    }
 }
