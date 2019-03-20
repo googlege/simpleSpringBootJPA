@@ -1,0 +1,1 @@
+you can use as a client Client Spring App or Script in Client/scripts.(run "./sendMeasurementDataToServer.sh messageList.txt http://localhost:8080/measure")

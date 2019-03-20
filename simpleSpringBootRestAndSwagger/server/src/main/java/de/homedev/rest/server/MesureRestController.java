@@ -14,6 +14,9 @@ public class MesureRestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(MesureRestController.class);
     public static final String JWT_KEY_AUTH = "jwt";
 
+//    @Autowired
+//    private ObjectMapper objectMapper;
+
     @ApiOperation(value = "Receives a measure from the trolley.", authorizations = @Authorization(JWT_KEY_AUTH))
     @ApiImplicitParams(@ApiImplicitParam(value = "RawMeasure data as Json. It is a list of measures", name = "measures", dataType = "RawWagenMeasure", required = true, type = "string", allowMultiple = true))
     @ApiResponses({
@@ -22,6 +25,12 @@ public class MesureRestController {
     public ResponseEntity<Void> receiveCartInfo(@RequestBody(required = false) final String measures) {
 
         LOGGER.info("Recived:" + measures);
+//        final UUID parentUuid = UUID.randomUUID();
+//        final Iterator<JsonNode> nodes = getNodesIterator(parentUuid, measures);
+//        while (nodes.hasNext()) {
+//            JsonNode node = nodes.next();
+//            LOGGER.info("Recived node:" + node.toString());
+//        }
 
         return ResponseEntity.noContent().build();
     }
@@ -31,4 +40,20 @@ public class MesureRestController {
     public String helloWorld() {
         return "Hello World";
     }
+
+//    private Iterator<JsonNode> getNodesIterator(final UUID uuid, final String jsonAsString) {
+//        final JsonNode rootNode;
+//        try {
+//            rootNode = objectMapper.readTree(jsonAsString);
+//        } catch (final IOException e) {
+//            LOGGER.error("Could not read json message with parent UUID '{}': {}", uuid, jsonAsString, e);
+//            return Collections.emptyIterator();
+//        }
+//
+//        if (rootNode.isArray()) {
+//            return rootNode.iterator();
+//        } else {
+//            return Collections.singletonList(rootNode).iterator();
+//        }
+//    }
 }

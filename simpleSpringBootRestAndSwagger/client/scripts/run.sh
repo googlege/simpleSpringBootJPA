@@ -1,0 +1,1 @@
+./sendMeasurementDataToServer.sh messageList.txt http://localhost:8080/measure
